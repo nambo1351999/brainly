@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +16,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("app_name").tr(),
       ),
-      body: Container(),
+      body: Container(
+        child: InkWell(
+          onTap: () {
+            context.go('/settings');
+          },
+          child: Text("NAMMMMMMM"),
+        ),
+      ),
+      drawer: Drawer(
+
+      ),
     );
   }
 }
