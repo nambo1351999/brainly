@@ -1,11 +1,9 @@
 import 'package:brainly/routers/router.dart';
-import 'package:brainly/screens/home/home_page.dart';
+import 'package:brainly/screens/translate/model/translate_model.dart';
+import 'package:brainly/theme/theme_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
-import 'model/counter.dart';
 
 Future<void> main() async {
   await _init();
@@ -14,7 +12,7 @@ Future<void> main() async {
       path: 'assets/translations',
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => Counter()),
+          ChangeNotifierProvider(create: (_) => TranslateModel()),
         ],
         child: const MyApp(),
       )));
@@ -35,15 +33,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.dark,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
       routerConfig: router,
     );
   }

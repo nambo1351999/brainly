@@ -1,5 +1,6 @@
 import 'package:brainly/screens/home/home_page.dart';
 import 'package:brainly/screens/settings/setting_page.dart';
+import 'package:brainly/screens/translate/presentation/translate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,6 +18,11 @@ final GoRouter router = GoRouter(
             return const SettingPage();
           },
         ),
+        GoRoute(
+            path: 'translate',
+            builder: (BuildContext context, GoRouterState state) {
+              return const TranslatePage();
+            })
       ],
     ),
   ],
