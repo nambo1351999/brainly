@@ -1,3 +1,4 @@
+import 'package:brainly/model/user_model.dart';
 import 'package:brainly/routers/router.dart';
 import 'package:brainly/screens/translate/model/translate_model.dart';
 import 'package:brainly/theme/theme_config.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => TranslateModel()),
+          ChangeNotifierProvider(create: (_) => UserModel()),
         ],
         child: const MyApp(),
       )));

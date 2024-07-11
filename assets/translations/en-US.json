@@ -1,4 +1,7 @@
 {
-  "app_name":"App Name",
-  "translate": "Translate"
+  "app_name":"Tool brain",
+  "translate": "Translate",
+  "math": "Math",
+  "resize_image": "Resize Image",
+  "settings": "Settings"
 }

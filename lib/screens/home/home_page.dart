@@ -1,10 +1,15 @@
 import 'package:brainly/components/app_ink_well.dart';
+import 'package:brainly/model/user_model.dart';
+import 'package:brainly/screens/math/math_page.dart';
+import 'package:brainly/screens/resize_image/resize_image_tool_page.dart';
+import 'package:brainly/screens/settings/setting_page.dart';
 import 'package:brainly/screens/translate/model/translate_model.dart';
 import 'package:brainly/screens/translate/presentation/translate_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'components/item_settings.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,18 +21,70 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarTranslate(context),
-      body: const TranslatePage(),
-      drawer: const Drawer(),
-    );
+    return Consumer<UserModel>(builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(appBarTitle(model.drawerStateValue)),
+          centerTitle: false,
+          actions: [appBarAction(model.drawerStateValue)],
+        ),
+        body: bodySwitchHome(model.drawerStateValue),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: SizedBox(
+                    width: double.infinity, child: Text('Drawer Header')),
+              ),
+              ItemSettings(
+                onTap: () {
+                  context
+                      .read<UserModel>()
+                      .updateDrawerState(DrawerState.translates);
+                },
+                title: "translate".tr(),
+                icon: "assets/icons/ic_translate.png",
+              ),
+              ItemSettings(
+                onTap: () {
+                  context
+                      .read<UserModel>()
+                      .updateDrawerState(DrawerState.maths);
+                },
+                title: "math".tr(),
+                icon: "assets/icons/ic_maths.png",
+              ),
+              ItemSettings(
+                onTap: () {
+                  context
+                      .read<UserModel>()
+                      .updateDrawerState(DrawerState.resizeToolImage);
+                },
+                title: "resize_image".tr(),
+                icon: "assets/icons/ic_resize_image.png",
+              ),
+              ItemSettings(
+                onTap: () {
+                  context
+                      .read<UserModel>()
+                      .updateDrawerState(DrawerState.settings);
+                },
+                title: "settings".tr(),
+                icon: "assets/icons/ic_settings.png",
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
-  AppBar appBarTranslate(BuildContext context) {
-    return AppBar(
-      title: const Text("app_name").tr(),
-      centerTitle: false,
-      actions: [
+  Widget actionTranslate(BuildContext context) {
+    return Row(
+      children: [
         AppInkWell(
           onTap: () {
             context
@@ -82,5 +139,38 @@ class _HomePageState extends State<HomePage> {
         const Gap(8),
       ],
     );
+  }
+
+  Widget appBarAction(DrawerState drawerState) {
+    if (drawerState == DrawerState.translates) {
+      return actionTranslate(context);
+    }
+    return Container();
+  }
+
+  String appBarTitle(DrawerState drawerState) {
+    switch (drawerState) {
+      case DrawerState.translates:
+        return "translate".tr();
+      case DrawerState.maths:
+        return "math".tr();
+      case DrawerState.resizeToolImage:
+        return "resize_image".tr();
+      case DrawerState.settings:
+        return "settings".tr();
+    }
+  }
+
+  Widget bodySwitchHome(DrawerState drawerState) {
+    switch (drawerState) {
+      case DrawerState.translates:
+        return const TranslatePage();
+      case DrawerState.maths:
+        return const MathPage();
+      case DrawerState.resizeToolImage:
+        return const ResizeImageToolPage();
+      case DrawerState.settings:
+        return const SettingPage();
+    }
   }
 }
