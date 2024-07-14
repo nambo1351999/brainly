@@ -1,6 +1,7 @@
 import 'package:brainly/model/user_model.dart';
 import 'package:brainly/routers/router.dart';
-import 'package:brainly/screens/translate/model/translate_model.dart';
+import 'package:brainly/screens/math/providers/math_model.dart';
+import 'package:brainly/screens/translate/providers/translate_model.dart';
 import 'package:brainly/theme/theme_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
       path: 'assets/translations',
       child: MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => MathModel()),
           ChangeNotifierProvider(create: (_) => TranslateModel()),
           ChangeNotifierProvider(create: (_) => UserModel()),
         ],

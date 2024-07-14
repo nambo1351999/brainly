@@ -1,6 +1,8 @@
 import 'package:brainly/components/app_text_field.dart';
-import 'package:brainly/screens/translate/model/translate_model.dart';
+import 'package:brainly/screens/translate/providers/translate_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/app_icon_button.dart';
@@ -25,76 +27,120 @@ class _TranslatePageState extends State<TranslatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TranslateModel>(builder: (context, model, child) {
-      return Column(
-        children: [
-          translateView(context, model.tableTranslate),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AppIconButton(
-                onPressed: () {},
-                icon: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
+    return Container(
+      margin: const EdgeInsets.all(16),
+      child: Consumer<TranslateModel>(builder: (context, model, child) {
+        return Column(
+          children: [
+            translateView(context, model.tableTranslate),
+            Stack(
+              children: [
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AppInkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                            color: Colors.orange,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.asset("assets/icons/ic_microphone.png"),
+                        ),
+                      ),
+                      const Gap(24),
+                      AppInkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                            color: Colors.orange,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.asset("assets/icons/ic_microphone.png"),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              AppIconButton(
-                onPressed: () {},
-                icon: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: AppIconButton(
+                      onPressed: () {},
+                      icon: Image.asset("assets/icons/ic_turn.png")),
+                )
+              ],
+            ),
+            const Gap(16),
+            Row(
+              children: [
+                AppInkWell(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: const BoxDecoration(
+                      color: Colors.orange,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset("assets/icons/ic_camera.png"),
+                  ),
                 ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              AppIconButton(
-                onPressed: () {},
-                icon: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
+                const Gap(8),
+                Expanded(
+                  child: AppTextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    hint: "enter_text_to_translate".tr(),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: AppTextField(
-                  controller: controller,
-                  focusNode: focusNode,
-                  hint: "",
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AppInkWell(
-                onTap: () {},
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
-                ),
-              ),
-              AppInkWell(
-                onTap: () {},
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
-                ),
-              )
-            ],
-          )
-        ],
-      );
-    });
+              ],
+            ),
+            const Gap(16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.orange),
+                      borderRadius: const BorderRadius.all(Radius.circular(24)),
+                      color: Colors.grey),
+                  child: const Column(
+                    children: [Text("Title"), Text("Content")],
+                  ),
+                )),
+                const Gap(8),
+                Image.asset("assets/icons/ic_change.png"),
+                const Gap(8),
+                Expanded(
+                    child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.orange),
+                      borderRadius: const BorderRadius.all(Radius.circular(24)),
+                      color: Colors.grey),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Title",
+                      ),
+                      Text("Content")
+                    ],
+                  ),
+                )),
+              ],
+            ),
+            const Gap(24)
+          ],
+        );
+      }),
+    );
   }
 
   Widget translateView(BuildContext context, TabTranslateState tab) {
@@ -112,8 +158,8 @@ class _TranslatePageState extends State<TranslatePage> {
     return const Expanded(
       child: Column(
         children: [
-          Expanded(child: Text("Duoc Dichj")),
-          Expanded(child: Text("Dich")),
+          Expanded(child: Center(child: Text("Duoc Dichj"))),
+          Expanded(child: Center(child: Text("Dich"))),
         ],
       ),
     );

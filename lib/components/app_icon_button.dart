@@ -8,6 +8,8 @@ class AppIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed.call(), icon: icon);
+    return IconButton(onPressed: () {
+      onPressed.call();
+    }, icon: icon);
   }
 }

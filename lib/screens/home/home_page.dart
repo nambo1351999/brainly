@@ -1,9 +1,11 @@
+import 'package:brainly/components/app_icon_button.dart';
 import 'package:brainly/components/app_ink_well.dart';
 import 'package:brainly/model/user_model.dart';
-import 'package:brainly/screens/math/math_page.dart';
+import 'package:brainly/screens/math/presentation/math_page.dart';
+import 'package:brainly/screens/math/providers/math_model.dart';
 import 'package:brainly/screens/resize_image/resize_image_tool_page.dart';
 import 'package:brainly/screens/settings/setting_page.dart';
-import 'package:brainly/screens/translate/model/translate_model.dart';
+import 'package:brainly/screens/translate/providers/translate_model.dart';
 import 'package:brainly/screens/translate/presentation/translate_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<UserModel>(builder: (context, model, child) {
       return Scaffold(
+        drawerEnableOpenDragGesture: false,
         appBar: AppBar(
           title: Text(appBarTitle(model.drawerStateValue)),
           centerTitle: false,
@@ -124,19 +127,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const Gap(8),
-        AppInkWell(
-          onTap: () {
-            context
-                .read<TranslateModel>()
-                .updateStateTabTranslate(TabTranslateState.listTranslate);
-          },
-          child: Container(
-            height: 24,
-            width: 24,
-            color: Colors.blue,
-          ),
-        ),
-        const Gap(8),
       ],
     );
   }
@@ -144,8 +134,37 @@ class _HomePageState extends State<HomePage> {
   Widget appBarAction(DrawerState drawerState) {
     if (drawerState == DrawerState.translates) {
       return actionTranslate(context);
+    } else if (drawerState == DrawerState.maths) {
+      return actionMaths(context);
     }
     return Container();
+  }
+
+  Widget actionMaths(BuildContext context) {
+    return Row(
+      children: [
+        AppIconButton(
+            onPressed: () {
+              context.read<MathModel>().updateStateTabMath(TabMathState.camera);
+            },
+            icon: Image.asset("assets/icons/ic_camera.png")),
+        const Gap(8),
+        AppIconButton(
+            onPressed: () {
+              context.read<MathModel>().updateStateTabMath(TabMathState.draw);
+            },
+            icon: Image.asset("assets/icons/ic_pencil.png")),
+        const Gap(8),
+        AppIconButton(
+            onPressed: () {
+              context
+                  .read<MathModel>()
+                  .updateStateTabMath(TabMathState.keyboard);
+            },
+            icon: Image.asset("assets/icons/ic_keyboard.png")),
+        const Gap(8),
+      ],
+    );
   }
 
   String appBarTitle(DrawerState drawerState) {
